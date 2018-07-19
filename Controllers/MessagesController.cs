@@ -25,8 +25,8 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
             // check if activity is of type message
             if (activity != null && activity.GetActivityType() == ActivityTypes.Message)
             {
-                //messageService.CheckSentences(activity);
-               await Conversation.SendAsync(activity, () => new EchoDialog());
+                messageService.CheckSentences(activity);
+               //await Conversation.SendAsync(activity, () => new EchoDialog());
             }
             else
             {

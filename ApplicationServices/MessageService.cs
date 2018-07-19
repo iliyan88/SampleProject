@@ -20,21 +20,21 @@ namespace SimpleEchoBot.ApplicationServices
         //BotCredentials botCredentials;
         //private readonly IConfiguration configurationRoot;
 
-        public MessageService(
-            IUnitOfWork unitOfWork
-            //IMemoryCache memoryCache,
-            //IOptions<BotCredentials> botCredentials,
-            //IWordCache wordCache,
-            //IConfiguration configurationRoot)
-            )
-        {
-            //this.unitOfWork = unitOfWork;
-            //this.memoryCache = memoryCache;
-            //this.wordCache = wordCache;
-            //this.configurationRoot = configurationRoot;
-            //this.botCredentials = botCredentials.Value;
-            this.sendGridClient = new SendGridClient(Environment.GetEnvironmentVariable("BOBTHEBOT_SENDGRID_EMAIL_APIKEY"));
-        }
+        //public MessageService(
+        //    IUnitOfWork unitOfWork
+        //    //IMemoryCache memoryCache,
+        //    //IOptions<BotCredentials> botCredentials,
+        //    //IWordCache wordCache,
+        //    //IConfiguration configurationRoot)
+        //    )
+        //{
+        //    //this.unitOfWork = unitOfWork;
+        //    //this.memoryCache = memoryCache;
+        //    //this.wordCache = wordCache;
+        //    //this.configurationRoot = configurationRoot;
+        //    //this.botCredentials = botCredentials.Value;
+        //    this.sendGridClient = new SendGridClient(Environment.GetEnvironmentVariable("BOBTHEBOT_SENDGRID_EMAIL_APIKEY"));
+        //}
 
 
 

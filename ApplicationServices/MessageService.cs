@@ -71,7 +71,7 @@ namespace SimpleEchoBot.ApplicationServices
             #endregion
 
             await connector.Conversations.SendToConversationAsync(activity.Conversation.Id, activity: activity.CreateReply("Hello"));
-            await connector.Conversations.ReplyToActivityAsync(activity: activity.CreateReply("Hello Reply"));
+            //await connector.Conversations.ReplyToActivityAsync(activity: activity.CreateReply("Hello Reply"));
 
 
             //if (activity.Conversation.IsGroup != null)

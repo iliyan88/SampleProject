@@ -109,7 +109,7 @@ namespace SimpleEchoBot.ApplicationServices
                     //send private message to user 
 
 
-                    await connector.Conversations.SendToConversationAsync(activity.Conversation.Id, activity: activity.CreateReply("Hello from other side :D"));
+                    await connector.Conversations.SendToConversationAsync(activity.Conversation.Id, activity: activity.CreateReply("Hello from other side!!! :D"));
                     //await connector.Conversations.SendToConversationAsync(
                     //    user.ConversationId,
                     //    activity: activity.CreateReply("Group: " + activity.ChannelId + "\n" + "User: " + from + "\n" + "Message: " + "\"" + activity.Text.ToString() + "\""));

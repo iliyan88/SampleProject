@@ -6,6 +6,10 @@ using Microsoft.Bot.Builder.Azure;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Internals;
 using Microsoft.Bot.Connector;
+using System.Web.Routing;
+using SimpleEchoBot.App_Start;
+using System.Web.Mvc;
+using System.Web.Optimization;
 
 namespace SimpleEchoBot
 {
@@ -36,6 +40,17 @@ namespace SimpleEchoBot
 
                 });
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            AreaRegistration.RegisterAllAreas();
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        //protected void Application_Start()
+        //{
+        //    GlobalConfiguration.Configure(WebApiConfig.Register);
+        //    RouteConfig.RegisterRoutes(RouteTable.Routes);
+        //    AreaRegistration.RegisterAllAreas();
+        //    BundleConfig.RegisterBundles(BundleTable.Bundles);
+        //}
     }
 }

@@ -1,24 +1,17 @@
-﻿using BobTheBot.ApplicationServices;
-using BobTheBot.Entities;
-using BobTheBot.RequestAndResponse;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using SimpleEchoBot.ApplicationServices;
+using SimpleEchoBot.Entities;
+using SimpleEchoBot.RequestAndResponse;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web.Http;
 
-namespace BobTheBot.Controllers
+namespace SimpleEchoBot.Controllers
 {
-    [Route("api/[controller]")]
-    public class UserController : Controller
+    [RoutePrefix("api/[controller]")]
+    public class UserController : ApiController
     {
-        private readonly UserService userService;
-
-        public UserController(UserService userService)
-        {
-            this.userService = userService;
-        }
+        private  UserService userService = new UserService();
 
         [HttpGet()]
         public async Task<IReadOnlyList<UserToReply>> GetUsersAsync()
@@ -27,18 +20,20 @@ namespace BobTheBot.Controllers
             return result;
         }
 
-        [HttpPut("{entityId:required}")]
+        [HttpPut()]
+        [Route("{entityId}")]
         public async Task<HttpResponseMessage> UpdateSchoolPageLanguageAsync(
-            [FromRoute]int entityId,
+            int entityId,
             [FromBody]UserUpdateRequest request)
         {
             var result = await userService.UpdateAsync(entityId, request);
             return result;
         }
 
-        [HttpDelete("{entityId:required}")]
+        [HttpDelete()]
+        [Route("{entityId}")]
         public async Task<HttpResponseMessage> DeleteSchoolPageAsync(
-            [FromRoute]int entityId)
+           int entityId)
         {
             var result = await userService.DeleteAsync(entityId);
             return result;

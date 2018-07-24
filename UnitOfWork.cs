@@ -1,35 +1,73 @@
-﻿using System;
+﻿using SimpleEchoBot.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace SimpleEchoBot
 {
-    //public class UnitOfWork : IUnitOfWork
-    //{
+    public class UnitOfWork : IDisposable // : IUnitOfWork
+    {
 
-    //    private readonly AppDbContext dbContext;
-    //    private readonly Lazy<ISearchKeyRepository> searchKeyRepository;
-    //    private readonly Lazy<IUserToReplyRepository> userToReplyRepository;
+        private readonly AppDbContext dbContext = new AppDbContext();
+        private SearchKeyRepository searchKeyRepository;
+        private UserToReplyRepository userToReplyRepository;
 
-    //    public ISearchKeyRepository SearchKeyRepository { get => searchKeyRepository.Value; }
-    //    public IUserToReplyRepository UserToReplyRepository { get => userToReplyRepository.Value; }
+        public SearchKeyRepository SearchKeyRepository
+        {
+            get
+            {
 
-    //    public UnitOfWork(AppDbContext dbContext, IServiceProvider serviceProvider)
-    //    {
-    //        this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-    //        searchKeyRepository = new Lazy<ISearchKeyRepository>(() => serviceProvider.GetService<ISearchKeyRepository>());
-    //        userToReplyRepository = new Lazy<IUserToReplyRepository>(() => serviceProvider.GetService<IUserToReplyRepository>());
-    //    }
+                if (this.searchKeyRepository == null)
+                {
+                    this.searchKeyRepository = new SearchKeyRepository(dbContext);
+                }
+                return searchKeyRepository;
+            }
+        }
 
-    //    public async Task SaveChangesAsync()
-    //    {
-    //        await dbContext.SaveChangesAsync();
-    //    }
+        public UserToReplyRepository UserToReplyRepository
+        {
+            get
+            {
 
-    //    public void SaveChange()
-    //    {
-    //        dbContext.SaveChanges();
-    //    }
-    //}
+                if (this.userToReplyRepository == null)
+                {
+                    this.userToReplyRepository = new UserToReplyRepository(dbContext);
+                }
+                return userToReplyRepository;
+            }
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await dbContext.SaveChangesAsync();
+        }
+
+        public void SaveChange()
+        {
+            dbContext.SaveChanges();
+        }
+
+        private bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    dbContext.Dispose();
+                }
+            }
+            this.disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+    }
 }

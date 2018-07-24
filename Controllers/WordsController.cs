@@ -1,23 +1,20 @@
-﻿using BobTheBot.ApplicationServices;
-using BobTheBot.RequestAndResponse;
-using Microsoft.AspNetCore.Mvc;
+﻿using SimpleEchoBot.ApplicationServices;
+using SimpleEchoBot.RequestAndResponse;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web.Http;
 
-namespace BobTheBot.Controllers
+namespace SimpleEchoBot.Controllers
 {
-    public class WordsController : Controller
+    [RoutePrefix("api/[controller]")]
+    public class WordsController : ApiController
     {
 
-        private readonly SearchKeyService searchKeyService;
+        private readonly SearchKeyService searchKeyService = new SearchKeyService();
 
-        public WordsController(SearchKeyService searchKeyService)
-        {
-            this.searchKeyService = searchKeyService;
-        }
 
-        [HttpPost("[controller]")]
+        [HttpPost()]
         public async Task<HttpResponseMessage> InsertWordAsync([FromBody]WordsRequest request)
         {
             var result = await searchKeyService.Add(request);
@@ -25,14 +22,15 @@ namespace BobTheBot.Controllers
         }
 
 
-        [HttpGet("[controller]")]
+        [HttpGet()]
         public async Task<IEnumerable<WordsResponse>> GetWordsAsync()
         {
             var words = await searchKeyService.GetAsync();
             return words;
         }
 
-        [HttpDelete("[controller]/{entityId:required}")]
+        [HttpDelete()]
+        [Route("{entityId}")]
         public async Task<HttpResponseMessage> DeleteWordAsync(int entityId)
         {
             var result = await searchKeyService.DeleteAsync(entityId);
